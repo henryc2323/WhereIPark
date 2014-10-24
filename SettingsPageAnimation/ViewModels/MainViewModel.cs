@@ -62,7 +62,7 @@ namespace SettingsPageAnimation.ViewModels
         private async Task WriteToFile()
         {
             // Get the text data from the textbox. 
-            byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes("NP 9");
+            byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes("Last Visit");
 
             // Get the local folder.
             StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -82,28 +82,28 @@ namespace SettingsPageAnimation.ViewModels
             }
         }
 
-        private async Task ReadFile()
+        private async Task LoadRecentLocation()
         {
             // Get the local folder.
             StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
 
             if (local != null)
             {
-                // Get the DataFolder folder.
-                var dataFolder = await local.GetFolderAsync("DataFolder");
+                // Create a new folder name DataFolder. Or Get the DataFolder folder.
+                var dataFolder = await local.CreateFolderAsync("DataFolder",
+                    CreationCollisionOption.OpenIfExists);
 
-                // Get the file.
+                // Create a new DataFile.txt or Get DataFile.
+                var tempfile = await dataFolder.CreateFileAsync("DataFile.txt",CreationCollisionOption.OpenIfExists);
                 var file = await dataFolder.OpenStreamForReadAsync("DataFile.txt");
-
-                // Read the data.
-                using (StreamReader streamReader = new StreamReader(file))
-                {
-                    //this.textBlock1.Text = streamReader.ReadToEnd();
-                    //this.Items.Add(new ItemViewModel() { ID = "8", LineOne = "temp", LineTwo = "temporary parking", LineThree = "Parking Details Here" });
-                    this.Items.Add(new ItemViewModel() { ID = "0", LineOne = streamReader.ReadToEnd(), LineTwo = "temporary location", LineThree = "Parking Details Here" });
-                }
-             } else {
-                 this.Items.Add(new ItemViewModel() { ID = "0", LineOne = "temporary location", LineTwo = "temporary location", LineThree = "Parking Details Here" });
+                   //Read the data.
+                    using (StreamReader streamReader = new StreamReader(file))
+                    {
+                      this.Items.Add(new ItemViewModel() { ID = "0", LineOne = streamReader.ReadToEnd(), LineTwo = "resent location", LineThree = "Parking Details Here" });
+                    }
+            } else {
+                // Not sure how to get Windows.Storage.ApplicationData.Current.LocalFolder = null
+                 this.Items.Add(new ItemViewModel() { ID = "0", LineOne = "recent location", LineTwo = "recent location", LineThree = "Parking Details Here" });
             }
         }
 
@@ -112,7 +112,7 @@ namespace SettingsPageAnimation.ViewModels
         /// </summary>
         public async void LoadData()
         {
-                    await ReadFile();
+                    await LoadRecentLocation();
                     this.Items.Add(new ItemViewModel() { ID = "1", LineOne = "NP4 P1", LineTwo = "T-Mobile Newport 4 P1", LineThree = "Parking Details Here" });
                     this.Items.Add(new ItemViewModel() { ID = "2", LineOne = "NP4 P2", LineTwo = "T-Mobile Newport 4 P2", LineThree = "Parking Details Here" });
                     this.Items.Add(new ItemViewModel() { ID = "3", LineOne = "NP4 P3", LineTwo = "T-Mobile Newport 4 P3", LineThree = "Parking Details Here" });
