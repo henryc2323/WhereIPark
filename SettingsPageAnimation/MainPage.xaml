@@ -1,0 +1,122 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="SettingsPageAnimation.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.settings.png" Text="button" Click="ApplicationBarIconButton_OnClick" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <Grid x:Name="Container" Background="Transparent">
+        <toolkit:GestureService.GestureListener>
+            <toolkit:GestureListener DragDelta="GestureListener_OnDragDelta" DragCompleted="GestureListener_OnDragCompleted" />
+        </toolkit:GestureService.GestureListener>
+
+        <Grid x:Name="SettingsPane"
+              Background="Teal"
+              Grid.Row="0"
+              Margin="-371,0,485,-174" HorizontalAlignment="Right" Width="366">
+            <Grid.Projection>
+                <PlaneProjection/>
+            </Grid.Projection>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="12,17,0,28">
+                <!--<TextBlock Text="SETTINGS PANE WITH GESTURES" Style="{StaticResource PhoneTextNormalStyle}"/>-->
+                <TextBlock Text="swipe to menu &gt;" Margin="9,-7,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                <TextBlock FontSize="40" TextWrapping="Wrap" Margin="0,48,12,48">
+                	<Run Text="Enter your location"/>
+                </TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ParkPlace" Margin="12"/>
+                    <Button Grid.Column="1" Click="Button_Click" Content="Go"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="28"  Margin="12">
+                    	<Run Text="You park at"/>
+                    </TextBlock>
+                    <TextBlock Grid.Column="1" x:Name="Result" FontSize="28" Margin="12"/>
+                </Grid>
+                <Grid >
+                    <TextBlock 
+        Name="textBlock1" 
+        HorizontalAlignment="Left"
+        Margin="10,0,0,0" 
+        TextWrapping="Wrap" Text=""
+        VerticalAlignment="Top" 
+        Height="61" 
+        Width="336"/>
+                    <Button
+        Name="btnRead" 
+        Content="Read"
+        HorizontalAlignment="Left" 
+        Margin="10,40,0,0" 
+        VerticalAlignment="Top"
+        Width="156" 
+        IsEnabled="true"
+        Click="btnRead_Click"/>
+                </Grid>
+                <Grid x:Name="ContentPanel2" Grid.Row="0" Margin="12,0,0,0">
+                    <Button x:Name="btnIconicTile" Content="Iconic Tile" HorizontalAlignment="Left" Margin="120,0,0,0" VerticalAlignment="Top" Width="207" Click="btnIconicTile_Click"  FontSize="28"/>
+                    <Button x:Name="btnFlipTile" Content="Flip Tile" HorizontalAlignment="Left" Margin="120,60,0,0" VerticalAlignment="Top" Width="207" Click="btnFlipTile_Click" FontSize="28"/>
+                    <!--   <Button Name="btnCycleTile" Content="Cycle Tile" HorizontalAlignment="Left" Margin="120,200,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.533,2.139" Width="207"  FontSize="28" Click="btnCycleTile_Click"/> 
+                    -->
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="LayoutRoot"
+              Background="SteelBlue"
+              Grid.Row="0" Margin="0,0,0,0">
+            <Grid.Projection>
+                <PlaneProjection/>
+            </Grid.Projection>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="12,17,0,28">
+                <!--<TextBlock Text="SETTINGS PANE WITH GESTURES" Style="{StaticResource PhoneTextNormalStyle}"/>-->
+                <TextBlock Text="&lt; swipe for settings" Margin="9,-7,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            </StackPanel>
+
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                <phone:LongListSelector x:Name="MainLongListSelector" Margin="0,10,-12,-10" ItemsSource="{Binding Items}" SelectionChanged="MainLongListSelector_SelectionChanged">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17">
+                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
+            </Grid>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>
