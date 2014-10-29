@@ -41,6 +41,8 @@ namespace SettingsPageAnimation
 
         private async void Button_Click (object sender, RoutedEventArgs e)
         {
+            String time = DateTime.Now.ToShortTimeString();
+            this.ParkPlace.Text = this.ParkPlace.Text + " " + time;
             this.Result.Text = this.ParkPlace.Text;
             //btnFlipTile_Click(sender, e);
             //btnIconicTile_Click(sender, e);
@@ -78,6 +80,7 @@ namespace SettingsPageAnimation
                 using (StreamReader streamReader = new StreamReader(file))
                 {
                     this.textBlock1.Text = streamReader.ReadToEnd();
+                    this.ParkPlace.Text = streamReader.ReadToEnd();
                 }
 
             }
@@ -111,13 +114,14 @@ namespace SettingsPageAnimation
             if (oTile != null && oTile.NavigationUri.ToString().Contains("flip"))
             {
                 FlipTileData oFliptile = new FlipTileData();
-                oFliptile.Title = "park@ " + this.ParkPlace.Text + " !!";
+                oFliptile.Title = "park@ " + this.ParkPlace.Text;
                 //oFliptile.Count = 11;
                 oFliptile.BackTitle = "Updated Flip Tile";
 
                 oFliptile.BackContent = "back of tile";
                 oFliptile.WideBackContent = "back of the wide tile";
 
+                //oFliptile.SmallBackgroundImage = new Uri("Assets/Tiles/Flip/159-159-006c.png", UriKind.Relative);
                 oFliptile.SmallBackgroundImage = new Uri("Assets/Tiles/Flip/159x159.png", UriKind.Relative);
                 oFliptile.BackgroundImage = new Uri("Assets/Tiles/Flip/336x336.png", UriKind.Relative);
                 oFliptile.WideBackgroundImage = new Uri("Assets/Tiles/Flip/691x336.png", UriKind.Relative);
@@ -140,12 +144,13 @@ namespace SettingsPageAnimation
         {
             return new FlipTileData()
             {
-                Title = "park@ " + this.ParkPlace.Text + " !!",
-                BackTitle = "This is WP8 flip tile",
-                BackContent = "Live Tile Demo",
-                WideBackContent = "Hello Nokia Lumia 920",
+                Title = "park@ " + this.ParkPlace.Text,
+                BackTitle = "BT" + "park@ " + this.ParkPlace.Text,
+                BackContent = "BC" + "park@ " + this.ParkPlace.Text,
+                WideBackContent = "WBC" + "park@ " + this.ParkPlace.Text,
                 //Count = 8, 
                 SmallBackgroundImage = new Uri("/Assets/Tiles/Flip/A159.png", UriKind.Relative),
+                //SmallBackgroundImage = new Uri("/Assets/Tiles/Flip/159-159-006c.png", UriKind.Relative),
                 BackgroundImage = new Uri("/Assets/Tiles/Flip/A336.png", UriKind.Relative),
                 WideBackgroundImage = new Uri("/Assets/Tiles/Flip/A691.png", UriKind.Relative),
             };
@@ -154,15 +159,15 @@ namespace SettingsPageAnimation
         private void btnIconicTile_Click(object sender, RoutedEventArgs e)
         {
             IconicTileData oIcontile = new IconicTileData();
-            oIcontile.Title = "park@ " + this.ParkPlace.Text + " !!";
+            oIcontile.Title = "park@ " + this.ParkPlace.Text;
             //oIcontile.Count = 1;
 
             oIcontile.IconImage = new Uri("Assets/Tiles/Iconic/202x202.png", UriKind.Relative);
             oIcontile.SmallIconImage = new Uri("Assets/Tiles/Iconic/110x110.png", UriKind.Relative);
 
-            oIcontile.WideContent1 = "you park at " + this.ParkPlace.Text;
-            oIcontile.WideContent2 = "you park at " + this.ParkPlace.Text + " !!";
-            oIcontile.WideContent3 = "you park at " + this.ParkPlace.Text;
+            oIcontile.WideContent1 = "park@" + this.ParkPlace.Text;
+            oIcontile.WideContent2 = "park@" + this.ParkPlace.Text;
+            oIcontile.WideContent3 = "park@" + this.ParkPlace.Text;
 
             oIcontile.BackgroundColor = System.Windows.Media.Colors.Orange;
 
@@ -185,7 +190,7 @@ namespace SettingsPageAnimation
         {
             // Get the text data from the textbox. 
             byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes(this.ParkPlace.Text.ToCharArray());
-
+          
             // Get the local folder.
             StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
 
@@ -200,7 +205,7 @@ namespace SettingsPageAnimation
             // Write the data from the textbox.
             using (var s = await file.OpenStreamForWriteAsync())
             {
-                s.Write(fileBytes, 0, fileBytes.Length);
+                s.Write(fileBytes, 0, fileBytes.Length); 
             }
         }
 

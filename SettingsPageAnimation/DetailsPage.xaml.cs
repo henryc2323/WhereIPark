@@ -44,6 +44,8 @@ namespace SettingsPageAnimation
         private async Task WriteToFile()
         {
             // Get the text data from the textbox. 
+            String time = DateTime.Now.ToShortTimeString();
+            this.ParkPlace.Text = this.ParkPlace.Text + " " + time;
             byte[] fileBytes = System.Text.Encoding.UTF8.GetBytes(this.ParkPlace.Text.ToCharArray());
 
             // Get the local folder.
@@ -74,14 +76,14 @@ namespace SettingsPageAnimation
         private void btnIconicTile_Click(object sender, RoutedEventArgs e)
         {
             IconicTileData oIcontile = new IconicTileData();
-            oIcontile.Title = "park@ " + this.ParkPlace.Text + " !!";
+            oIcontile.Title = "park@ " + this.ParkPlace.Text;
             //oIcontile.Count = 1;
 
             oIcontile.IconImage = new Uri("Assets/Tiles/Iconic/202x202.png", UriKind.Relative);
             oIcontile.SmallIconImage = new Uri("Assets/Tiles/Iconic/110x110.png", UriKind.Relative);
 
             oIcontile.WideContent1 = "park@" + this.ParkPlace.Text;
-            oIcontile.WideContent2 = "you park at " + this.ParkPlace2.Text + " !!";
+            oIcontile.WideContent2 = "you park at " + this.ParkPlace2.Text;
             oIcontile.WideContent3 = "you park at " + this.ParkPlace2.Text;
             oIcontile.BackgroundColor = System.Windows.Media.Colors.Orange;
 

@@ -99,7 +99,7 @@ namespace SettingsPageAnimation.ViewModels
                    //Read the data.
                     using (StreamReader streamReader = new StreamReader(file))
                     {
-                      this.Items.Add(new ItemViewModel() { ID = "0", LineOne = streamReader.ReadToEnd(), LineTwo = "resent location", LineThree = "Parking Details Here" });
+                      this.Items.Add(new ItemViewModel() { ID = "0", LineOne = streamReader.ReadToEnd(), LineTwo = "recent location", LineThree = "Parking Details Here" });
                     }
             } else {
                 // Not sure how to get Windows.Storage.ApplicationData.Current.LocalFolder = null
